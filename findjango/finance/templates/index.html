@@ -1,39 +1,60 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    </head>
-    <body>
-        <h1>Example Code</h1>
-        <div class="container">
-            <div class="row">
-                <table class="table-primary">
-                    <thead>
-                      <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Publishers</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <div class="col">
-                            <tr>
-                                <td>{{name}}</td>
-                                <td></td>
-                            </tr>
-                        </div>
-                        <div class="col">
-                            {% for i in publisher %}
-                            <tr>
-                              <td></td>
-                              <td>{{i}}</td>
-                            </tr>
-                            {% endfor %}
-                        </div>
-                    </tbody>
-                </table>
-            </div>
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <table class="table table-sm table-bordered border-secondary">
+                <thead>
+                    <tr>
+                        <th scope="col">Symbol</th>
+                        <th scope="col">Currency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in currencies.items %}
+                    <tr>
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    </body>
-</html>
+        <div class="col-3">
+            <table class="table table-sm table-bordered border-secondary">
+                <thead>
+                    <tr>
+                        <form method="POST">
+                        <td>
+                            <select class="form-select" name="rate" id="rate">
+                                {% for key in currencies %}
+                                <option value="{{key}}">{{key}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <th>
+                            <input class="btn btn-secondary" type="submit" value="Change">
+                            {% csrf_token %}
+                        </form>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Symbol</th>
+                        <th scope="col">Base : {{latest.base}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in latest.rates.items %}
+                    <tr>
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

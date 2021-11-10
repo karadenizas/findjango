@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('profile/', include('userprofile.urls', namespace='profile')), # profile urls must be above
     path('', include('finance.urls')),
 ]

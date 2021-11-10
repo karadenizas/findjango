@@ -1,0 +1,50 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  </head>
+  <body>
+    
+<div class="container">
+  <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="text-center">
+        <a class="blog-header-logo text-dark fs-1" href="{% url 'index' %}">FinDjango</a>
+      </div>
+    </div>
+  </header>
+
+    <div class="nav-scroller py-1 mb-2">
+      <nav class="nav d-flex justify-content-between">
+        <a class="p-2 link-secondary" href="{% url 'index' %}">Home</a>
+        <a class="p-2 link-secondary" href="{% url 'profile:profile' %}">Profile</a>
+        <a class="p-2 link-secondary" href="#">null</a>
+        <a class="p-2 link-secondary" href="#">null</a>
+        <a class="p-2 link-secondary" href="#">null</a>
+        <a class="p-2 link-secondary" href="#">null</a>
+        <a class="p-2 link-secondary" href="#">null</a>
+        <a class="p-2 link-secondary" href="#">null</a>
+      </nav>
+    </div>
+  </div>
+
+  {% block content %}
+  {% endblock %}
+  <div class="container">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+      </ul>
+      <p class="text-center text-muted">&copy; 2021 Company, Inc</p>
+    </footer>
+  </div>
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  </body>
+</html>
+
