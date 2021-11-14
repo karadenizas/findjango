@@ -5,53 +5,53 @@
 <div class="container">
     <div class="row">
         <div class="col-3">
+            <div class="alert alert-secondary fs-4 text-center" role="alert">
+                Latest Advices
+            </div>
             <table class="table table-sm table-bordered border-secondary">
                 <thead>
                     <tr>
-                        <th scope="col">Symbol</th>
-                        <th scope="col">Currency</th>
+                        <th scope="col">Advisor</th>
+                        <th scope="col">Target Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for key, value in currencies.items %}
+                    {% for i in latest_advices %}
                     <tr>
-                        <td>{{key}}</td>
-                        <td>{{value}}</td>
+                        <td>{{i.investor}}</td>
+                        <td>{{i.target_date}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+        <div class="col-6">
+            <div class="card text-center">
+                <div class="card-header">
+                  Wellcome to FinDjango!
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">FinDjango is financial consultancy app.</h5>
+                  <p class="card-text">Here you can get advice or give advice.</p>
+                </div>
+            </div>
+        </div>
         <div class="col-3">
+            <div class="alert alert-secondary fs-4 text-center" role="alert">
+                Popular Advisors
+            </div>
             <table class="table table-sm table-bordered border-secondary">
                 <thead>
                     <tr>
-                        <form method="POST">
-                        <td>
-                            <select class="form-select" name="rate" id="rate">
-                                {% for key in currencies %}
-                                <option value="{{key}}">{{key}}</option>
-                                {% endfor %}
-                            </select>
-                        </td>
-                        <th>
-                            <input class="btn btn-secondary" type="submit" value="Change Base">
-                            {% csrf_token %}
-                        </form>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Symbol</th>
-                        <th scope="col">Base : {{latest.base}}</th>
+                        <th scope="col">Advisor</th>
+                        <th scope="col">Win Rate</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for key, value in latest.rates.items %}
                     <tr>
-                        <td>{{key}}</td>
-                        <td>{{value}}</td>
+                        <td></td>
+                        <td></td>
                     </tr>
-                    {% endfor %}
                 </tbody>
             </table>
         </div>

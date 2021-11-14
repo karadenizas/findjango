@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
-    path('profile/', include('userprofile.urls', namespace='profile')), # profile urls must be above
+    path('invest/', include('investment.urls', namespace='investment')),
+    path('profile/', include('userprofile.urls', namespace='profile')),
     path('', include('finance.urls')),
 ]
 
