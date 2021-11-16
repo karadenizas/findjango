@@ -44,6 +44,10 @@
                     </select>
                     <label for="target_date">Target Date:</label>
                     {{form.target_date}}
+                    <label for="description">Description:</label>
+                    {{form.description}}
+                    <label for="token">Token:</label>
+                    {{form.token}}
                 <br>
                 <button class="w-100 btn btn-lg btn-secondary" type="submit">Create</button>
                 {% csrf_token %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container center">
+    <div class="row justify-content-md-center">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{% if user_profile.image %} {{user_profile.image.url}} {% endif%} " alt=" " width="180" height="180">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{user_profile.user}}</h5>
+                  <p class="card-text">Name: {{user_profile.first_name}} {{user_profile.last_name}}</p>
+                  <p class="card-text"><small class="text-muted">{{user_profile.about}}</small></p>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
