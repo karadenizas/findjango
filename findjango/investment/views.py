@@ -3,6 +3,7 @@ from investment.forms import CreateInvestForm
 import requests
 from investment.models import CreateInvest
 from userprofile.models import Profile
+from payment.models import UserWallet
 
 
 def create_form(request):
@@ -51,6 +52,16 @@ def create_form(request):
 def detail_invest(request, id):
     invest_model = CreateInvest.objects.get(id=id)
     investor_profile = Profile.objects.get(user=invest_model.investor)
+    investor_wallet = UserWallet.objects.get(user=invest_model.investor)
+    user_wallet = UserWallet.objects.get(user=request.user)
+
+    if request.method == "POST" and user_wallet.token >= invest_model.token:
+        user_wallet.token = user_wallet.token - invest_model.token
+        investor_wallet.token += invest_model.token
+        invest_model.member.add(request.user)
+        user_wallet.save()
+        investor_wallet.save()
+        return redirect('index')
 
     context = {
         'invest_model': invest_model,
