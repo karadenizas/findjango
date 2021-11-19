@@ -4,6 +4,7 @@ import requests
 from investment.models import CreateInvest
 from userprofile.models import Profile
 from payment.models import UserWallet
+from django.urls import reverse_lazy, reverse
 
 
 def create_form(request):
@@ -49,7 +50,7 @@ def create_form(request):
     return render(request, 'investment/create_invest.html', context)
 
 
-def detail_invest(request, id):
+def preview_invest(request, id):
     invest_model = CreateInvest.objects.get(id=id)
     investor_profile = Profile.objects.get(user=invest_model.investor)
     investor_wallet = UserWallet.objects.get(user=invest_model.investor)
@@ -61,10 +62,21 @@ def detail_invest(request, id):
         invest_model.member.add(request.user)
         user_wallet.save()
         investor_wallet.save()
-        return redirect('index')
+        return redirect('investment:review_invest', id=id)
 
     context = {
         'invest_model': invest_model,
         'investor_profile': investor_profile,
     }
-    return render(request, 'investment/detail_invest.html', context)
+    return render(request, 'investment/preview_invest.html', context)
+
+
+def review_invest(request, id):
+    invest_model = CreateInvest.objects.get(id=id)
+    investor_profile = Profile.objects.get(user=invest_model.investor)
+
+    context = {
+        'invest_model': invest_model,
+        'investor_profile': investor_profile,
+    }
+    return render(request, 'investment/review_invest.html', context)

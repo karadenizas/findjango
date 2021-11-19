@@ -15,7 +15,8 @@ class CreateInvest(models.Model): #CreateInvest name will change! like InvestAdv
     create_time = models.DateTimeField(auto_now_add=True)
     base_date = models.DateField(auto_now_add=True)
     target_date = models.DateField(default=now)
-    description = models.TextField(max_length=2500, null=True)
+    description = models.TextField(max_length=500, null=True)
+    analysis = models.TextField(max_length=3000, default='')
     member = models.ManyToManyField(MyUser, blank=True, related_name='invest')
     token = models.IntegerField(null=True, default=0)
 

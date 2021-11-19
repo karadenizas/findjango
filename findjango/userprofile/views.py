@@ -21,3 +21,6 @@ def user_profile(request, slug):
         'user_profile': user_profile,
     }
     return render(request, 'userprofile/user_profile.html', context)
+
+def profile_settings(request):
+    return render(request, 'userprofile/profile_settings.html')

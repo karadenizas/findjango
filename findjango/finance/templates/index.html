@@ -18,7 +18,7 @@
                 <tbody>
                     {% for i in latest_advices %}
                     <tr>
-                        <td><a href="{% url 'investment:detail_invest' i.id %} ">{{i.investor}}</a></td>
+                        <td><a href="{% url 'investment:preview_invest' i.id %} ">{{i.investor}}</a></td>
                         <td>{{i.target_date}}</td>
                     </tr>
                     {% endfor %}
