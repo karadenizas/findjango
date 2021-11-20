@@ -63,14 +63,16 @@
                 <thead>
                     <tr>
                         <th scope="col">Advisor</th>
-                        <th scope="col">Win Rate</th>
+                        <th scope="col">Members</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for i in popular_advices %}
                     <tr>
-                        <td></td>
-                        <td></td>
+                        <td><a href="{% url 'investment:preview_invest' i.id %} ">{{i.investor}}</a></td>
+                        <td class="text-center">{{i.member.count}}</td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

@@ -18,8 +18,7 @@ def purchasing_option(request):
 def payment_process(request, id):
     if request.method == "POST":
         pack = PurchaseOption.objects.get(id=id)
-        user_wallet = UserWallet.objects.get_or_create(user=request.user) # if not exist user wallet, create an user wallet.
-        user_wallet = UserWallet.objects.get(user=request.user) # if exist continue
+        user_wallet = UserWallet.objects.get(user=request.user)
 
         # start the process
         nonce = request.POST.get('payment_method_nonce', None)

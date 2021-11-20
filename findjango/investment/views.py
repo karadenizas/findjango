@@ -4,9 +4,11 @@ import requests
 from investment.models import CreateInvest
 from userprofile.models import Profile
 from payment.models import UserWallet
-from django.urls import reverse_lazy, reverse
+from django.contrib.auth.decorators import login_required
+from investment.decorators import member_check
 
 
+@login_required
 def create_form(request):
     form = CreateInvestForm()
 
@@ -50,6 +52,7 @@ def create_form(request):
     return render(request, 'investment/create_invest.html', context)
 
 
+@login_required
 def preview_invest(request, id):
     invest_model = CreateInvest.objects.get(id=id)
     investor_profile = Profile.objects.get(user=invest_model.investor)
@@ -71,6 +74,9 @@ def preview_invest(request, id):
     return render(request, 'investment/preview_invest.html', context)
 
 
+
+@login_required
+@member_check
 def review_invest(request, id):
     invest_model = CreateInvest.objects.get(id=id)
     investor_profile = Profile.objects.get(user=invest_model.investor)

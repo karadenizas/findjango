@@ -14,7 +14,9 @@
         <a class="blog-header-logo text-dark fs-1" href="{% url 'index' %}">FinDjango</a>
       </div>
     </div>
-    <p class="text-end">Token: !5</p>
+    {% if request.user.is_authenticated %}
+    <p class="text-end">Token: {{user_token}}</p>
+    {% endif %}
   </header>
 
     <div class="nav-scroller py-1 mb-2">
