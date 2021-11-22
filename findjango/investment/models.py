@@ -19,6 +19,7 @@ class CreateInvest(models.Model): #CreateInvest name will change! like InvestAdv
     analysis = models.TextField(max_length=3000, default='')
     member = models.ManyToManyField(MyUser, blank=True, related_name='invest')
     token = models.IntegerField(null=True, default=0)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.base_currency} to {self.target_currency} by {self.investor}'
@@ -31,3 +32,15 @@ class CreateInvest(models.Model): #CreateInvest name will change! like InvestAdv
 
     def get_absolute_url(self):
         return reverse('investment:detail_invest', kwargs={'id': self.id})
+
+
+# This model may not be best choice. It will be researched.
+class ResultInvest(models.Model):
+    invest = models.OneToOneField(CreateInvest, on_delete=models.CASCADE, related_name='result')
+    investor = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='investor_result')
+    member = models.ManyToManyField(MyUser, blank=True, related_name='member_result')
+    start_value = models.DecimalField(max_digits=14, decimal_places=7)
+    result_value = models.DecimalField(max_digits=14, decimal_places=7)
+
+    def __str__(self):
+        return f'{self.start_value} to {self.result_value}'

@@ -1,11 +1,13 @@
+from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from investment.forms import CreateInvestForm
 import requests
-from investment.models import CreateInvest
+from investment.models import CreateInvest, ResultInvest
 from userprofile.models import Profile
 from payment.models import UserWallet
 from django.contrib.auth.decorators import login_required
 from investment.decorators import member_check
+from datetime import date
 
 
 @login_required
@@ -28,7 +30,7 @@ def create_form(request):
         # take the target value
         base_currency = request.POST.get('base_currency')
         target_currency = request.POST.get('target_currency')
-        payload = {'from': base_currency, 'to': target_currency}
+        payload = {'from':base_currency, 'to':target_currency}
         get_target_url = requests.get('https://api.frankfurter.app/latest', params=payload)
         get_target_json = get_target_url.json()
         get_target_data = get_target_json['rates'][target_currency]

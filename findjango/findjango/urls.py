@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+# Test View
+# from investment.views import test
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
@@ -25,6 +27,8 @@ urlpatterns = [
     path('profile/', include('userprofile.urls', namespace='profile')),
     path('payment/', include('payment.urls', namespace='payment')),
     path('', include('finance.urls')),
+    # Test Url
+    # path('test/', test,),
 ]
 
 if settings.DEBUG:
