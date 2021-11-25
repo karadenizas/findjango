@@ -39,8 +39,16 @@ class ResultInvest(models.Model):
     invest = models.OneToOneField(CreateInvest, on_delete=models.CASCADE, related_name='result')
     investor = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='investor_result')
     member = models.ManyToManyField(MyUser, blank=True, related_name='member_result')
+    create_date = models.DateField(auto_now_add=True)
     start_value = models.DecimalField(max_digits=14, decimal_places=7)
     result_value = models.DecimalField(max_digits=14, decimal_places=7)
+    total_value = models.DecimalField(max_digits=14, decimal_places=7, default=0)
+    ratio = models.DecimalField(max_digits=14, decimal_places=7, default=0)
 
     def __str__(self):
         return f'{self.start_value} to {self.result_value}'
+
+    def save(self, *args, **kwargs):
+        self.total_value = self.start_value - self.result_value
+        self.ratio = ((self.start_value - self.result_value) / self.start_value) * 100
+        return super().save(*args, **kwargs)

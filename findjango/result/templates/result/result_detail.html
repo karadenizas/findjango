@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header">
+                  <strong>{{invest_result.invest.base_currency}} to {{invest_result.invest.target_currency}}</strong>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    <p>Create Date : {{invest_result.create_date}}</p>
+                    <p>Finish Date : {{invest_result.invest.target_date}}</p>
+                    <p>Advisor : <a href="{% url 'profile:user_profile' invest_result.investor|lower %}">{{invest_result.investor}}</a>
+                    <p>Start Value : {{invest_result.start_value}}</p>
+                    <p>Final Value : {{invest_result.result_value}}</p>
+                    <p>Total Value : {{invest_result.total_value}}</p>
+                    <p>Ratio : % {{invest_result.ratio}}</p>
+                    <p>Owners : {{invest_result.member.count}}</p>
+                    </p>
+                  </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

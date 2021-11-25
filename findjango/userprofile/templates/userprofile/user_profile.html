@@ -1,22 +1,79 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container center">
-    <div class="row justify-content-md-center">
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img src="{% if user_profile.image %} {{user_profile.image.url}} {% endif%} " alt=" " width="180" height="180">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">{{user_profile.user}}</h5>
-                  <p class="card-text">Name: {{user_profile.first_name}} {{user_profile.last_name}}</p>
-                  <p class="card-text"><small class="text-muted">{{user_profile.about}}</small></p>
-                </div>
-              </div>
-            </div>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{% if user_profile.image %} {{user_profile.image.url}} {% endif%} " alt=" " width="180"
+            height="180">
         </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{user_profile.user}}</h5>
+            <p class="card-text">Name: {{user_profile.first_name}} {{user_profile.last_name}}</p>
+            <p class="card-text"><small class="text-muted">{{user_profile.about}}</small></p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="alert alert-secondary fs-4 text-center" role="alert">
+        Pending Advices
+      </div>
+      <table class="table table-sm table-bordered border-secondary">
+        <thead>
+          <tr>
+            <th scope="col">Advice</th>
+            <th scope="col">Target Date</th>
+            <th scope="col">Owners</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in pending_advice %}
+          <tr>
+            <td><a href="{% url 'invest:preview_invest' i.id %}">{{i.base_currency}} to
+                {{i.target_currency}}</a></td>
+            <td>{{i.target_date}}</td>
+            <td>{{i.member.count}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6">
+      <div class="alert alert-secondary fs-4 text-center" role="alert">
+        Concluded Advices
+      </div>
+      <table class="table table-sm table-bordered border-secondary">
+        <thead>
+          <tr>
+            <th scope="col">Advice</th>
+            <th scope="col">Total</th>
+            <th scope="col">Ratio</th>
+            <th scope="col">Owners</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in concluded_advice %}
+          <tr>
+            <td><a href="{% url 'result:result_detail' i.id %}">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
+            {% if i.total_value > 0 %}
+            <td class="text-success">{{i.total_value}}</td>
+            <td class="text-success">% {{i.ratio|truncatechars:6}}</td>
+            {% else %}
+            <td class="text-danger">{{i.total_value}}</td>
+            <td class="text-danger">% {{i.ratio|truncatechars:6}}</td>
+            {% endif %}
+            <td>{{i.member.count}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 {% endblock %}

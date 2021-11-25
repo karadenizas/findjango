@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-secondary fs-4 text-center" role="alert">
+                All Daily Results
+            </div>
+            <table class="table table-sm table-bordered border-secondary">
+                <thead>
+                    <tr>
+                        <th scope="col">Advice</th>
+                        <th scope="col">Advisor</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Ratio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in invest_result %}
+                    <tr>
+                        <td><a href="{% url 'result:result_detail' i.id %}">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
+                        <td><a href="{% url 'profile:user_profile' i.investor|lower %}">{{i.investor}}</a></td>
+                        {% if i.total_value > 0 %}
+                        <td class="text-success">{{i.total_value}}</td>
+                        <td class="text-success">% {{i.ratio|truncatechars:6}}</td>
+                        {% else %}
+                        <td class="text-danger">{{i.total_value}}</td>
+                        <td class="text-danger">% {{i.ratio|truncatechars:6}}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <div class="alert alert-secondary fs-4 text-center" role="alert">
+                Daily Top Earners
+            </div>
+            <table class="table table-sm table-bordered border-secondary">
+                <thead>
+                    <tr>
+                        <th scope="col">Advice</th>
+                        <th scope="col">Advisor</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Ratio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in top_earner %}
+                    <tr>
+                        <td><a href="{% url 'result:result_detail' i.id %}">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
+                        <td><a href="{% url 'profile:user_profile' i.investor|lower %}">{{i.investor}}</a></td>
+                        {% if i.total_value > 0 %}
+                        <td class="text-success">{{i.total_value}}</td>
+                        <td class="text-success">% {{i.ratio|truncatechars:6}}</td>
+                        {% else %}
+                        <td class="text-danger">{{i.total_value}}</td>
+                        <td class="text-danger">% {{i.ratio|truncatechars:6}}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

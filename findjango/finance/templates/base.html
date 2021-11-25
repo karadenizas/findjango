@@ -23,6 +23,7 @@
       <nav class="nav d-flex justify-content-between">
         <a class="p-2 btn btn-outline-secondary" href="{% url 'index' %}">Home</a>
         <a class="p-2 btn btn-outline-secondary" href="{% url 'investment:create_invest' %}">Create an Investment Advice</a>
+        <a class="p-2 btn btn-outline-secondary" href="{% url 'result:result_index' %}">Results</a>
         <a class="p-2 btn btn-outline-secondary" href="{% url 'payment:purchasing_option' %}">Get Token</a>
         {% if request.user.is_authenticated %}
         <div class="dropdown">
