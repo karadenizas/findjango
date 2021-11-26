@@ -1,0 +1,27 @@
+<div class="btn-group" role="group">
+
+    {% if page.has_previous %}
+    <button type="button" class="btn btn-outline-secondary"
+            hx-target="#popularAdvices" hx-get="/htmx-popular-advices/?page={{ page.previous_page_number }}">
+            Back
+    </button>
+    {% else %}
+    <button type="button" class="btn btn-outline-secondary disabled">Back</button>
+    {% endif %}
+  
+    <button type="button" class="btn btn-outline-secondary">{{page.number}}</button>
+    <button type="button" class="btn btn-outline-secondary"
+            hx-target="#popularAdvices" hx-get="/htmx-popular-advices/?page={{ page.paginator.num_pages }}">
+            {{page.paginator.num_pages}}
+    </button>
+  
+    {% if page.has_next %}
+    <button type="button" class="btn btn-outline-secondary"
+            hx-target="#popularAdvices" hx-get="/htmx-popular-advices/?page={{ page.next_page_number }}">
+            Next
+    </button>
+    {% else %}
+    <button type="button" class="btn btn-outline-secondary disabled">Next</button>
+    {% endif %}
+    
+  </div>

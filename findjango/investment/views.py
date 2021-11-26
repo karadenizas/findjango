@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from investment.forms import CreateInvestForm
 import requests
@@ -88,3 +88,10 @@ def review_invest(request, id):
         'investor_profile': investor_profile,
     }
     return render(request, 'investment/review_invest.html', context)
+
+
+
+# Test Func
+# def test(request):
+#     return render(request, 'test.html')
+

@@ -1,68 +1,69 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-  </head>
-  <body>
-    
-<div class="container">
-  <header class="blog-header py-3">
-    <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="text-center">
-        <a class="blog-header-logo text-dark fs-1" href="{% url 'index' %}">FinDjango</a>
-      </div>
-    </div>
-    {% if request.user.is_authenticated %}
-    <p class="text-end">Token: {{user_token}}</p>
-    {% endif %}
-  </header>
 
-    <div class="nav-scroller py-1 mb-2">
-      <nav class="nav d-flex justify-content-between">
-        <a class="p-2 btn btn-outline-secondary" href="{% url 'index' %}">Home</a>
-        <a class="p-2 btn btn-outline-secondary" href="{% url 'investment:create_invest' %}">Create an Investment Advice</a>
-        <a class="p-2 btn btn-outline-secondary" href="{% url 'result:result_index' %}">Results</a>
-        <a class="p-2 btn btn-outline-secondary" href="{% url 'payment:purchasing_option' %}">Get Token</a>
-        {% if request.user.is_authenticated %}
-        <div class="dropdown">
-          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            {{request.user|truncatechars:10}}
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="{% url 'profile:my_profile' %}">Profile</a></li>
-            <li><a class="dropdown-item" href="{% url 'profile:profile_settings' %}">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
-          </ul>
-        </div>
-        {% else %}
-        <a class="p-2 btn btn-outline-secondary" href="{% url 'login' %}">Log in</a>
-        <a class="p-2 btn btn-outline-secondary" href="{% url 'profile:register' %}">Sign up</a>
-        {% endif %}
-      </nav>
-    </div>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
+
+<body style="background-color: rgb(22, 26, 30);" onload="triggerLatestAdvices">
+
+  <div class="container">
+    <header
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <a href="{% url 'index' %}"
+        class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-success text-decoration-none fs-2 fw-bold">
+        FinDjango
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{% url 'index' %}" class="nav-link px-3 link-light fw-bold">Home</a></li>
+        <li><a href="{% url 'invest:create_invest' %}" class="nav-link px-3 link-light fw-bold">Create Advice</a></li>
+        <li><a href="{% url 'result:result_index' %}" class="nav-link px-3 link-light fw-bold">Results</a></li>
+        <li><a href="{% url 'payment:purchasing_option' %}" class="nav-link px-3 link-light fw-bold">Get Token</a></li>
+      </ul>
+      
+      {% if request.user.is_authenticated %}
+      <span class="text-warning">Token: {{user_token}}</span>
+      <div class="dropdown">
+        <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+          {{request.user|truncatechars:15}}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+          <li><a class="dropdown-item" href="{% url 'profile:my_profile' %}">Profile</a></li>
+          <li><a class="dropdown-item" href="{% url 'profile:profile_settings' %}">Settings</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-warning" href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+      </div>
+      {% else %}
+      <div class="col-md-3 text-end">
+        <a href="{% url 'login' %}" class="btn btn-outline-warning me-2">Login</a>
+        <a href="{% url 'profile:register' %}" class="btn btn-outline-warning me-2">Sign-up</a>
+      </div>
+      {% endif %}
+    </header>
   </div>
-  <br>
 
   {% block content %}
   {% endblock %}
+
   <div class="container">
     <footer class="py-3 my-4">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="https://github.com/karadenizas" class="nav-link px-2 text-muted">GitHub</a></li>
+        <li class="nav-item"><a href="https://twitter.com/askaradeniz" class="nav-link px-2 text-muted">Twitter</a></li>
+        <li class="nav-item"><a href="https://www.linkedin.com/in/askaradeniz" class="nav-link px-2 text-muted">LinkedIn</a></li>
       </ul>
-      <p class="text-center text-muted">&copy; 2021 Company, Inc</p>
+      <p class="text-center text-muted">&copy; 2021 <strong>FinDjango</strong></p>
     </footer>
   </div>
-  <script src="{% static 'js/bootstrap.js' %}"></script>
-  <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
-  </body>
-</html>
 
+  <script src="https://unpkg.com/htmx.org@1.6.1"></script>  
+  <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</body>
+
+</html>

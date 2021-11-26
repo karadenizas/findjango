@@ -1,8 +1,86 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 <div class="container">
+    <div class="row">
+        <div class="col-3">
+            {% include 'htmx_latest_advices.html' %}
+        </div>
+        <div class="col-6">
+            <div class="card bg-transparent">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-light">Welcome to FinDjango</h5>
+                    <p class="card-text text-light">
+                        FinDjango is <strong>sample/test</strong> financial consultancy application.
+                        <br>
+                        Here you can get advice or give advice.
+                        If you want to use the app you have must be login!
+                    </p>
+                </div>
+            </div>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item bg-transparent border-secondary">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button bg-transparent text-secondary" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            <strong>How can I take an advice?</strong>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse text-light" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>Click on Get Token and choose a package and go to the payment screen.</li>
+                                <li>Enter the card number as 4111 1111 1111 1111. Enter a random number in the other
+                                    fields.</li>
+                                <li>The token will be loaded into your account.</li>
+                                <li>Select and buy one of the advices on the homepage.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item bg-transparent border-secondary">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button bg-transparent text-secondary" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true"
+                            aria-controls="collapseTwo">
+                            <strong>How can I give an advice?</strong>
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse text-light" aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>Click on Create Advice.</li>
+                                <li>The first currency must gain value against the second currency of the target date.
+                                </li>
+                                <li>Select the target date.</li>
+                                <li>Write the info.</li>
+                                <li>Write the analysis that buyers will see.</li>
+                                <li>Enter the token amount.</li>
+                                <li>And create.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            {% include 'htmx_popular_advices.html' %}
+        </div>
+    </div>
+</div>
+
+<!-- doen't show the advices when loaded the page .solution for now. -->
+<script>
+    window.onload=function() {
+      document.getElementById("popularButton").click()
+      document.getElementById("latestButton").click()
+    }
+</script>
+
+<!-- <div class="container">
     <div class="row">
         <div class="col-3">
             <div class="alert alert-secondary fs-4 text-center" role="alert">
@@ -31,7 +109,7 @@
                   Wellcome to FinDjango!
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">FinDjango is financial consultancy app.</h5>
+                  <h5 class="card-title text-blue">FinDjango is financial consultancy app.</h5>
                   <p class="card-text">Here you can get advice or give advice.</p>
                 </div>
             </div>
@@ -59,5 +137,5 @@
             </table>
         </div>
     </div>
-</div>
+</div> -->
 {% endblock %}
