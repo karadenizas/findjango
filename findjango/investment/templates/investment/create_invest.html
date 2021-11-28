@@ -4,6 +4,58 @@
 <div class="container">
     <div class="row">
         <div class="col-3">
+            <form>
+                <div hx-post="/invest/htmx-latest-rate/" hx-trigger="change" hx-target="#latestTable">
+                    <select class="form-select bg-transparent text-light border-secondary" name="rate">
+                        <option selected>Select a Base Currency</option>
+                        {% for i in currencies %}
+                        <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                    </select>
+                    <hr>
+                </div>
+            </form>
+
+            {% include 'investment/htmx_latest_rates.html' %}
+        </div>
+
+        <div class="col-6">
+            {% include 'investment/htmx_create_invest.html' %}
+        </div>
+
+        <div class="col-3">
+            <table class="table table-borderless table-sm text-light">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Currency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in currencies.items %}
+                    <tr>
+                        <td><small>{{key}}</small></td>
+                        <td><small>{{value}}</small></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/htmx.org@1.6.1"></script>
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script>
+
+<!-- <br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
             <table class="table table-sm table-bordered border-secondary">
                 <thead>
                     <tr>
@@ -24,32 +76,30 @@
         <div class="col-6">
             <form method="POST">
                 <h1 class="h3 mb-3 fw-normal text-center">Create an Investment Advice</h1>
-                    <!-- {{form.base_value}}
-                    {{form.target_value}} -->
-                    <label for="base_currency">Base Currency:</label>
-                    <select class="form-control" name="base_currency" id="base_currency">
-                        {% for key, value in currencies.items %}
-                        <option value="{{key}}">
-                            {{key}}
-                        </option>
-                        {% endfor %}
-                    </select>
-                    <label for="target_currency">Target Currency:</label>
-                    <select class="form-control" name="target_currency" id="target_currency">
-                        {% for key, value in currencies.items %}
-                        <option value="{{key}}">
-                            {{key}}
-                        </option>
-                        {% endfor %}
-                    </select>
-                    <label for="target_date">Target Date:</label>
-                    {{form.target_date}}
-                    <label for="description">Description:</label>
-                    {{form.description}}
-                    <label for="analysis">Analysis:</label>
-                    {{form.analysis}}
-                    <label for="token">Token:</label>
-                    {{form.token}}
+                <label for="base_currency">Base Currency:</label>
+                <select class="form-control" name="base_currency" id="base_currency">
+                    {% for key, value in currencies.items %}
+                    <option value="{{key}}">
+                        {{key}}
+                    </option>
+                    {% endfor %}
+                </select>
+                <label for="target_currency">Target Currency:</label>
+                <select class="form-control" name="target_currency" id="target_currency">
+                    {% for key, value in currencies.items %}
+                    <option value="{{key}}">
+                        {{key}}
+                    </option>
+                    {% endfor %}
+                </select>
+                <label for="target_date">Target Date:</label>
+                {{form.target_date}}
+                <label for="description">Description:</label>
+                {{form.description}}
+                <label for="analysis">Analysis:</label>
+                {{form.analysis}}
+                <label for="token">Token:</label>
+                {{form.token}}
                 <br>
                 <button class="w-100 btn btn-lg btn-secondary" type="submit">Create</button>
                 {% csrf_token %}
@@ -60,16 +110,16 @@
                 <thead>
                     <tr>
                         <form method="POST">
-                        <td>
-                            <select class="form-select" name="rate" id="rate">
-                                {% for key in currencies %}
-                                <option value="{{key}}">{{key}}</option>
-                                {% endfor %}
-                            </select>
-                        </td>
-                        <th>
-                            <input class="btn btn-secondary" type="submit" value="Change Base">
-                            {% csrf_token %}
+                            <td>
+                                <select class="form-select" name="rate" id="rate">
+                                    {% for key in currencies %}
+                                    <option value="{{key}}">{{key}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <th>
+                                <input class="btn btn-secondary" type="submit" value="Change Base">
+                                {% csrf_token %}
                         </form>
                         </th>
                     </tr>
@@ -89,5 +139,6 @@
             </table>
         </div>
     </div>
-</div>
+</div> -->
+
 {% endblock %}

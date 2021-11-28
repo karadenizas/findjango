@@ -1,0 +1,53 @@
+    <form id="createForm">
+        <div class="row">
+            <div class="col-6">
+                <label for="base_currency" class="text-light fw-bold">Base Currency:</label>
+                <select class="form-select bg-transparent border-secondary text-light" name="base_currency">
+                    {% for key, value in currencies.items %}
+                    <option value="{{key}}">{{key}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-6">
+                <label for="target_currency" class="text-light fw-bold">Target Currency:</label>
+                <select class="form-select bg-transparent border-secondary text-light" name="target_currency">
+                    {% for key, value in currencies.items %}
+                    <option value="{{key}}">{{key}}</option>
+                    {% endfor %}
+                </select>
+                <br>
+            </div>
+
+            <div>
+                <label class="text-light fw-bold" for="description">Description: </label>
+                {{form.description}}
+            </div>
+
+            <div>
+                <br>
+                <label class="text-light fw-bold" for="description">Analysis: </label>
+                {{form.analysis}}
+            </div>
+
+            <div class="col">
+                <br>
+                <label for="target_date" class="text-light fw-bold">Target Date: </label>
+                {{form.target_date}}
+            </div>
+
+            <div>
+                <br>
+                <label class="text-light fw-bold" for="description">Token: </label>
+                {{form.token}}
+            </div>
+
+            <div class="d-grid gap-3 col-10 mx-auto">
+                <hr>
+                <button class="btn btn-outline-secondary text-light fw-bold" hx-post="/invest/htmx-create-invest/"
+                    hx-target="#createForm">
+                    Create the Advice
+                </button>
+            </div>
+            {{form.target_date.errors}}
+        </div>
+    </form>

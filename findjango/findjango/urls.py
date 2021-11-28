@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 # Test View
-# from investment.views import test
+from investment.views import test
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
@@ -29,7 +29,7 @@ urlpatterns = [
     path('payment/', include('payment.urls', namespace='payment')),
     path('', include('finance.urls')),
     # Test Url
-    # path('test/', test,),
+    path('test/', test,),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,16 @@
+<table class="table table-transparent table-borderless text-light table-sm" id="latestTable">
+    <thead>
+        <tr>
+            <th>Currency</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key, value in latest_rate.rates.items %}
+        <tr>
+            <td><small>{{key}}</small></td>
+            <td><small>{{value}}</small></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
