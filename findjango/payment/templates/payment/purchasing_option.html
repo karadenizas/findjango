@@ -5,13 +5,13 @@
     <div class="row">
         {% for pack in packs %}
         <div class="col">
-          <div class="card text-center bg-light">
+          <div class="card border-secondary text-center bg-transparent text-success">
             <div class="card-body">
-              <h4 class="card-title text">{{pack.name}}</h4>
-              <h6 class="card-title text">{{pack.token_amount}} Token</h6>
-              <p class="card-text">{{pack.description}}</p>
+              <h4 class="card-title text text-light">{{pack.name}}</h4>
+              <h6 class="card-title text-light text fw-bold">{{pack.token_amount}} Token</h6>
+              <p class="card-text text-light">{{pack.description}}</p>
               <h5 class="card-title text">${{pack.total_price}}</h5>
-              <a href="{% url 'payment:process' pack.id %}" class="btn btn-secondary">Buy</a>
+              <a href="{% url 'payment:process' pack.id %}" class="btn btn-outline-secondary">Buy</a>
             </div>
           </div>
         </div>

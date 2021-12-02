@@ -25,6 +25,7 @@
       </ul>
       
       {% if request.user.is_authenticated %}
+      <li><a href="{% url 'profile:my_profile' %}" class="nav-link px-3 link-light fw-bold">Profile</a></li>
       <span class="text-warning">Token: {{user_token}}</span>
       <div class="dropdown">
         <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,7 +33,7 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
           <li><a class="dropdown-item" href="{% url 'profile:my_profile' %}">Profile</a></li>
-          <li><a class="dropdown-item" href="{% url 'profile:profile_settings' %}">Settings</a></li>
+          <li><a class="dropdown-item" href="{% url 'profile:account_settings' %}">Settings</a></li>
           <li><a class="dropdown-item" href="#">Something else here</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item text-warning" href="{% url 'logout' %}">Logout</a></li>

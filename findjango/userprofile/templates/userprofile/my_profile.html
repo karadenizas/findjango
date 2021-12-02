@@ -1,4 +1,106 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="alert alert-secondary text-light fw-bold text-center fs-4 bg-transparent">
+                    Given Advices
+                </div>
+                <div class="col-6">
+                    <div class="alert alert-secondary text-light fw-bold text-center fs-6 bg-transparent">
+                        Pending
+                    </div>
+                    <table class="table table-sm table-borderless table-hover border-secondary">
+                        <thead class="text-light">
+                            <tr>
+                                <th>Advice</th>
+                                <th>Target Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in pending_advice %}
+                            <tr>
+                                <td><a class="text-secondary" href="{% url 'invest:review_invest' i.id %}" style="text-decoration: none;">{{i.base_currency}} to {{i.target_currency}}</a></td>
+                                <td class="text-secondary">{{i.target_date}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <div class="alert alert-secondary text-light fw-bold text-center fs-6 bg-transparent">
+                        Concluded
+                    </div>
+                    <table class="table table-sm table-borderless table-hover border-secondary">
+                        <thead class="text-light">
+                            <tr>
+                                <th>Advice</th>
+                                <th>Ratio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in given_concluded_advice %}
+                            <tr>
+                                <td><a class="text-secondary" href="{% url 'result:result_detail' i.id %}" style="text-decoration: none;">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
+                                <td class="text-secondary">%{{i.ratio}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="alert alert-secondary text-light fw-bold text-center fs-4 bg-transparent">
+                    Purchased Advices
+                </div>
+                <div class="col-6">
+                    <div class="alert alert-secondary text-light fw-bold text-center fs-6 bg-transparent">
+                        Pending
+                    </div>
+                    <table class="table table-sm table-borderless table-hover border-secondary">
+                        <thead class="text-light">
+                            <tr>
+                                <th>Advice</th>
+                                <th>Target Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in purchased_advice %}
+                            <tr>
+                                <td><a class="text-secondary" href="{% url 'invest:review_invest' i.id %}" style="text-decoration: none;">{{i.base_currency}} to {{i.target_currency}}</a></td>
+                                <td class="text-secondary">{{i.target_date}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <div class="alert alert-secondary text-light fw-bold text-center fs-6 bg-transparent">
+                        Concluded
+                    </div>
+                    <table class="table table-sm table-borderless table-hover border-secondary">
+                        <thead class="text-light">
+                            <tr>
+                                <th>Advice</th>
+                                <th>Ratio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in purchased_concluded_advice %}
+                            <tr>
+                                <td><a class="text-secondary" href="{% url 'result:result_detail' i.id %}" style="text-decoration: none;">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
+                                <td class="text-secondary">%{{i.ratio}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -2,27 +2,41 @@
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <div class="card">
-                <div class="card-header">
-                  <strong>{{invest_result.invest.base_currency}} to {{invest_result.invest.target_currency}}</strong>
-                </div>
-                <div class="card-body">
-                  <p class="card-text">
-                    <p>Create Date : {{invest_result.create_date}}</p>
-                    <p>Finish Date : {{invest_result.invest.target_date}}</p>
-                    <p>Advisor : <a href="{% url 'profile:user_profile' invest_result.investor|lower %}">{{invest_result.investor}}</a>
-                    <p>Start Value : {{invest_result.start_value}}</p>
-                    <p>Final Value : {{invest_result.result_value}}</p>
-                    <p>Total Value : {{invest_result.total_value}}</p>
-                    <p>Ratio : % {{invest_result.ratio}}</p>
-                    <p>Owners : {{invest_result.member.count}}</p>
-                    </p>
-                  </p>
-                </div>
-            </div>
-        </div>
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="alert text-center text-light fw-bold fs-4">{{invest_result.invest.base_currency}} to {{invest_result.invest.target_currency}}</div>
+      <table class="table table-sm table-borderless border-secondary">
+        <thead class="text-secondary">
+          <tr>
+            <th>Create Date</th>
+            <th>Finish Date</th>
+            <th>Advisor</th>
+            <th>Start Value</th>
+            <th>Final Value</th>
+            <th>Total Value</th>
+            <th>Ratio</th>
+            <th>Owners</th>
+          </tr>
+        </thead>
+        <tbody class="text-light fw-bold">
+          <tr>
+            <td>{{invest_result.invest.create_time|date}}</td>
+            <td>{{invest_result.invest.target_date}}</td>
+            <td><a style="text-decoration: none;" href="{% url 'profile:user_profile' invest_result.investor|lower %}">{{invest_result.investor}}</a></td>
+            <td>{{invest_result.start_value}}</td>
+            <td>{{invest_result.result_value}}</td>
+            {% if invest_result.total_value > 0 %}
+            <td class="text-success">{{invest_result.total_value}}</td>
+            <td class="text-success">% {{invest_result.ratio}}</td>
+            {% else %}
+            <td class="text-danger">{{invest_result.total_value}}</td>
+            <td class="text-danger">% {{invest_result.ratio}}</td>
+            {% endif %}
+            <td>{{invest_result.member.count}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 {% endblock %}

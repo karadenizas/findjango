@@ -1,3 +1,4 @@
+from django.contrib.messages.api import error
 from django.forms.utils import ErrorList
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
@@ -36,27 +37,36 @@ def htmx_latest_rate(request):
 
 
 def htmx_create_invest(request):
-    form = CreateInvestForm(request.POST)
-    base_currency = request.POST.get('base_currency')
-    target_currency = request.POST.get('target_currency')
-    payload = {'from': base_currency, 'to': target_currency}
-    get_target_url = requests.get(
-        'https://api.frankfurter.app/latest', params=payload)
-    get_target_json = get_target_url.json()
-    get_target_data = get_target_json['rates'][target_currency]
+    form = CreateInvestForm()
+    currencies_response = requests.get('https://api.frankfurter.app/currencies')
+    currencies = currencies_response.json()
 
-    if form.is_valid():
-        user_form = form.save(commit=False)
-        user_form.investor = request.user
-        user_form.target_value = get_target_data
-        user_form.save()
-        return redirect('profile:my_profile')
-    else:
-        form = CreateInvestForm()
+    if request.method == "POST":
+        form = CreateInvestForm(request.POST)
+        base_currency = request.POST.get('base_currency')
+        target_currency = request.POST.get('target_currency')
+        payload = {'from': base_currency, 'to': target_currency}
+        get_target_url = requests.get(
+            'https://api.frankfurter.app/latest', params=payload)
+        get_target_json = get_target_url.json()
+        get_target_data = get_target_json['rates'][target_currency]
 
-
+        if form.is_valid():
+            user_form = form.save(commit=False)
+            user_form.investor = request.user
+            user_form.target_value = get_target_data
+            user_form.save()
+            return HttpResponse("""
+                <div class="alert alert-secondary bg-transparent text-center text-success fw-bold" role="alert">
+                <h4 class="alert-heading fw-bold">Advice has been successfully created!</h4>
+                <p>You can show the your advices from the Profile tab.</p>
+                <hr>
+                </div> """
+                )
+            
     context = {
         'form': form,
+        'currencies': currencies,
     }
     return render(request, 'investment/htmx_create_invest.html', context)
 
@@ -98,13 +108,11 @@ def review_invest(request, id):
 from datetime import date
 # Test Func
 def test(request):
+    form = CreateInvestForm()
     if request.method == "POST":
         form = CreateInvestForm(request.POST)
         if form.is_valid():
-            today = date.today()
-            if request.POST.get('target_date') < today:
-                raise
-            print(form)
             return HttpResponse('ok')
-    form = CreateInvestForm()
+    else:
+        return render(request, 'test.html', {'form': form})
     return render(request, 'test.html', {'form': form})

@@ -1,4 +1,4 @@
-    <form id="createForm">
+    <form id="createForm" method="POST">
         <div class="row">
             <div class="col-6">
                 <label for="base_currency" class="text-light fw-bold">Base Currency:</label>
@@ -34,6 +34,11 @@
                 <label for="target_date" class="text-light fw-bold">Target Date: </label>
                 {{form.target_date}}
             </div>
+            {% if form.target_date.errors %}
+            <div class="alert alert-danger" role="alert">
+                Please enter a valid date. Target date cannot be previous date and today!
+            </div>
+            {% endif %}
 
             <div>
                 <br>
@@ -48,6 +53,5 @@
                     Create the Advice
                 </button>
             </div>
-            {{form.target_date.errors}}
         </div>
     </form>

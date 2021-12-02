@@ -9,18 +9,18 @@
         <div class="col-4">
             <div class="demo-frame">  
                 <form method="post" id="payment">
-                <label class="hosted-fields--label" for="card-number">Card Number</label>
+                <label class="hosted-fields--label text-light" for="card-number">Card Number</label>
                 <div id="card-number" class="hosted-field"></div>
               
-                <label class="hosted-fields--label" for="expiration-date">Expiration Date</label>
+                <label class="hosted-fields--label text-light" for="expiration-date">Expiration Date</label>
                 <div id="expiration-date" class="hosted-field"></div>
               
-                <label class="hosted-fields--label" for="cvv">CVV</label>
+                <label class="hosted-fields--label text-light" for="cvv">CVV</label>
                 <div id="cvv" class="hosted-field"></div>
               
                 <div class="button-container">
                 <input type="hidden" id="nonce" name="payment_method_nonce" value="">
-                <input type="submit" class="button button--small button--green" value="Purchase"/>
+                <input type="submit" class="button button--small button--green text-dark fw-bold" value="Purchase"/>
                 </div>
                 {% csrf_token %}
                 </form>
@@ -75,6 +75,11 @@
                 });
               </script>
         </div>
+        <span class="text-success fw-bold">Valided Card:</span>
+        <span class="text-light">Card Number : 4111 1111 1111 1111</span>
+        <span class="text-light">Expiration Date : 12/34</span>
+        <span class="text-light">CVV : 123</span>
+        <span class="text-light"><small><em>braintree by paypal</em></small></span>
     </div>
 </div>
 

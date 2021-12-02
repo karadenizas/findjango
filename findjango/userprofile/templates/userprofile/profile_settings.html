@@ -1,11 +1,47 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
+        <div class="col-6">
+            <div class="row justify-content-md-center">
+                <div class="card mb-3 bg-transparent text-light" style="max-width: 540px;">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="{% if user_profile.image %} {{user_profile.image.url}} {% endif%} " class="rounded-circle" alt=" " width="180" height="180">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">{{user_profile.user}}</h5>
+                        <p class="card-text">Name: {{user_profile.first_name}} {{user_profile.last_name}}</p>
+                        <p class="card-text"><small class="text-muted">{{user_profile.about}}</small></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
         <div class="col-4">
-            <div class="list-group">
-                <a href="{% url 'password_change' %}" class="list-group-item list-group-item-action">Change Password</a>
+            <div class="d-grid gap-2">
+                <h1 class="h3 mb-3 fw-normal text-center text-light">
+                    Profile Settings
+                </h1>
+                <hr>
+                <form method="POST" enctype="multipart/form-data">
+                    {% render_field form.first_name class="form-control" placeholder="First Name" required="false" %}
+                    <br>
+                    {% render_field form.last_name class="form-control" placeholder="Last Name" type="text" %}
+                    <br>
+                    {% render_field form.image class="form-control"%}
+                    <br>
+                    {% render_field form.about class="form-control" placeholder="About" type="text" %}
+                    <br>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-warning" type="submit">Change</button>
+                    </div>
+                    {% csrf_token %}
+                </form>
             </div>
         </div>
     </div>

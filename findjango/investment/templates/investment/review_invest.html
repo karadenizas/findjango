@@ -2,22 +2,31 @@
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <div class="card">
-                <div class="card-header">
-                  Base Currency : <strong>{{invest_model.base_currency}}</strong> --> Target Currency : <strong>{{invest_model.target_currency}}</strong>
-                </div>
-                <div class="card-body">
-                  <p class="card-text">
-                    {{invest_model.analysis}}
-                    <p><a href="{% url 'profile:user_profile' investor_profile.slug %}">{{invest_model.investor}}</a>
-                    <p>{{invest_model.create_time}}</p>
-                    </p>
-                  </p>
-                </div>
-            </div>
-        </div>
+  <div class="row justify-content-center">
+    <table class="table table-sm table-borderless border-secondary">
+      <thead class="text-secondary">
+        <tr>
+          <th>Base Currency</th>
+          <th>Target Currency</th>
+          <th>Advisor</th>
+          <th>Target Date</th>
+        </tr>
+      </thead>
+      <tbody class="text-light">
+        <tr>
+          <td>{{invest_model.base_currency}}</td>
+          <td>{{invest_model.target_currency}}</td>
+          <td><a href="{% url 'profile:user_profile' invest_model.investor|lower %}" style="text-decoration: none;">{{invest_model.investor}}</a></td>
+          <td>{{invest_model.target_date}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="card bg-transparent text-light">
+      <div class="card-header fw-bold">Analysis</div>
+      <div class="card-body">
+        <p>{{invest_model.analysis}}</p>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock content %}

@@ -27,7 +27,7 @@ class CreateInvest(models.Model): #CreateInvest name will change! like InvestAdv
     def save(self, *args, **kwargs):
         today = date.today()
         if self.target_date <= today:
-            raise ValidationError('Target date cannot be previous date and now.')
+            raise ValidationError('Target date cannot be previous date and today.')
         super(CreateInvest, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

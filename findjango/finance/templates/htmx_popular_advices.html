@@ -9,10 +9,10 @@
         </svg>
     </button>
     {% for i in paginate_advices %}
-    <button class="btn btn-outline-secondary text-light" type="button">
-        <span class="">{{i.investor|truncatechars:12}}</span> <span
-            class="fw-light">{{i.target_date}}</span>
-    </button>
+    <a class="btn btn-outline-secondary text-light" type="submit" href="{% url 'invest:preview_invest' i.id %}">
+        <span class="">{{i.investor|truncatechars:12}}</span>
+        <span class="fw-light">{{i.target_date}}</span>
+    </a>
     {% endfor %}
     {% include 'popular_pagination.html' with page=paginate_advices %}
 </div>

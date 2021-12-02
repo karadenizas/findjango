@@ -1,6 +1,8 @@
 from django import forms
 from investment.models import CreateInvest
 from datetime import date
+from django.core.exceptions import ValidationError
+
 
 class CreateInvestForm(forms.ModelForm):
 
@@ -15,3 +17,9 @@ class CreateInvestForm(forms.ModelForm):
             'analysis': forms.Textarea(attrs={'class': 'form-control bg-transparent text-light', 'placeholder': 'Write an analysis for your advice buyers.'}),
             'token': forms.NumberInput(attrs={'class': 'form-control bg-transparent text-light', 'style': 'width: 86%; display: inline-block;'}),
         }
+
+    def clean_target_date(self):
+        value = self.cleaned_data['target_date']
+        if value <= date.today():
+            raise ValidationError('Target date cannot be previous date and today.')
+        return value

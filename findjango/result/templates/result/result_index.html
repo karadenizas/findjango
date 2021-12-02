@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="alert alert-secondary fs-4 text-center" role="alert">
-                All Daily Results
+            <div class="alert alert-secondary text-light fw-bold text-center fs-4 bg-transparent">
+                 Daily Results
             </div>
-            <table class="table table-sm table-bordered border-secondary">
-                <thead>
+            <table class="table table-sm table-borderless table-hover border-secondary">
+                <thead class="text-light">
                     <tr>
                         <th scope="col">Advice</th>
                         <th scope="col">Advisor</th>
@@ -19,8 +19,8 @@
                 <tbody>
                     {% for i in invest_result %}
                     <tr>
-                        <td><a href="{% url 'result:result_detail' i.id %}">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
-                        <td><a href="{% url 'profile:user_profile' i.investor|lower %}">{{i.investor}}</a></td>
+                        <td><a class="text-secondary" style="text-decoration: none;" href="{% url 'result:result_detail' i.id %}">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
+                        <td><a class="text-primary" style="text-decoration: none;" href="{% url 'profile:user_profile' i.investor|lower %}">{{i.investor}}</a></td>
                         {% if i.total_value > 0 %}
                         <td class="text-success">{{i.total_value}}</td>
                         <td class="text-success">% {{i.ratio|truncatechars:6}}</td>
@@ -34,11 +34,11 @@
             </table>
         </div>
         <div class="col">
-            <div class="alert alert-secondary fs-4 text-center" role="alert">
+            <div class="alert alert-secondary text-light fw-bold text-center fs-4 bg-transparent">
                 Daily Top Earners
             </div>
-            <table class="table table-sm table-bordered border-secondary">
-                <thead>
+            <table class="table table-sm table-borderless table-hover border-secondary">
+                <thead class="text-light">
                     <tr>
                         <th scope="col">Advice</th>
                         <th scope="col">Advisor</th>
@@ -49,8 +49,8 @@
                 <tbody>
                     {% for i in top_earner %}
                     <tr>
-                        <td><a href="{% url 'result:result_detail' i.id %}">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
-                        <td><a href="{% url 'profile:user_profile' i.investor|lower %}">{{i.investor}}</a></td>
+                        <td><a class="text-secondary" style="text-decoration: none;" href="{% url 'result:result_detail' i.id %}">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
+                        <td><a class="text-primary" style="text-decoration: none;" href="{% url 'profile:user_profile' i.investor|lower %}">{{i.investor}}</a></td>
                         {% if i.total_value > 0 %}
                         <td class="text-success">{{i.total_value}}</td>
                         <td class="text-success">% {{i.ratio|truncatechars:6}}</td>
