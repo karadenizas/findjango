@@ -5,6 +5,7 @@ from django.utils.timezone import now
 from datetime import date
 from django.core.exceptions import ValidationError
 from django.urls import reverse
+import decimal
 
 
 class CreateInvest(models.Model): #CreateInvest name will change! like InvestAdvice or Invest
@@ -24,11 +25,11 @@ class CreateInvest(models.Model): #CreateInvest name will change! like InvestAdv
     def __str__(self):
         return f'{self.base_currency} to {self.target_currency} by {self.investor}'
 
-    def save(self, *args, **kwargs):
-        today = date.today()
-        if self.target_date <= today:
-            raise ValidationError('Target date cannot be previous date and today.')
-        super(CreateInvest, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     today = date.today()
+    #     if self.target_date <= today:
+    #         raise ValidationError('Target date cannot be previous date and today.')
+    #     super(CreateInvest, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('investment:detail_invest', kwargs={'id': self.id})
@@ -49,6 +50,6 @@ class ResultInvest(models.Model):
         return f'{self.start_value} to {self.result_value}'
 
     def save(self, *args, **kwargs):
-        self.total_value = self.start_value - self.result_value
-        self.ratio = ((self.start_value - self.result_value) / self.start_value) * 100
+        self.total_value = self.start_value - decimal.Decimal(self.result_value)
+        self.ratio = ((self.start_value - decimal.Decimal(self.result_value)) / self.start_value) * 100
         return super().save(*args, **kwargs)

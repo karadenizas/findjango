@@ -36,6 +36,7 @@ def htmx_latest_rate(request):
     return render(request, 'investment/htmx_latest_rates.html', {'latest_rate': latest_rate})
 
 
+@login_required
 def htmx_create_invest(request):
     form = CreateInvestForm()
     currencies_response = requests.get('https://api.frankfurter.app/currencies')
@@ -77,6 +78,9 @@ def preview_invest(request, id):
     investor_profile = Profile.objects.get(user=invest_model.investor)
     investor_wallet = UserWallet.objects.get(user=invest_model.investor)
     user_wallet = UserWallet.objects.get(user=request.user)
+
+    if request.user == invest_model.investor:
+        return redirect('investment:review_invest', id=id)
 
     if request.method == "POST" and user_wallet.token >= invest_model.token:
         user_wallet.token = user_wallet.token - invest_model.token

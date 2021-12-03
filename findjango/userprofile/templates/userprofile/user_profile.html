@@ -6,7 +6,7 @@
     <div class="card mb-3 bg-transparent text-light" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="{% if user_profile.image %} {{user_profile.image.url}} {% endif%} " class="rounded-circle" alt=" " width="180" height="180">
+          <img src="{% if user_profile.image %} {{user_profile.image.url}} {% else %} {{'https://seeklogo.com/images/D/django-logo-4C5ECF7036-seeklogo.com.png'}} {% endif%}" class="rounded-circle" alt=" " width="180" height="180">
         </div>
         <div class="col-md-8">
           <div class="card-body">

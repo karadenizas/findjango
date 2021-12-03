@@ -7,9 +7,9 @@
         <div class="col-4">
             <form method="POST">
                 <h1 class="h3 mb-3 fw-normal text-center text-light">Log in</h1>
-                {% render_field form.username class="form-control" type="email" %}
+                {% render_field form.username class="form-control" type="email" placeholder="Email" %}
                 <br>
-                {% render_field form.password class="form-control" type="password" %}
+                {% render_field form.password class="form-control" type="password" placeholder="Password" %}
                 <br>
                 <button class="w-100 btn btn-lg btn-outline-warning" type="submit">Sign in</button>
                 {% csrf_token %}
