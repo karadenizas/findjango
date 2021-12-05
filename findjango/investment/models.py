@@ -22,6 +22,9 @@ class CreateInvest(models.Model): #CreateInvest name will change! like InvestAdv
     token = models.IntegerField(null=True, default=0)
     active = models.BooleanField(default=True)
 
+    class Meta:
+        ordering = ['-create_time']
+
     def __str__(self):
         return f'{self.base_currency} to {self.target_currency} by {self.investor}'
 
@@ -45,6 +48,9 @@ class ResultInvest(models.Model):
     result_value = models.DecimalField(max_digits=14, decimal_places=7)
     total_value = models.DecimalField(max_digits=14, decimal_places=7, default=0)
     ratio = models.DecimalField(max_digits=14, decimal_places=7, default=0)
+
+    class Meta:
+        ordering = ['-create_date']
 
     def __str__(self):
         return f'{self.start_value} to {self.result_value}'

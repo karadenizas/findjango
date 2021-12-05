@@ -22,10 +22,12 @@
         <li><a href="{% url 'invest:create_invest' %}" class="nav-link px-3 link-light fw-bold">Create Advice</a></li>
         <li><a href="{% url 'result:result_index' %}" class="nav-link px-3 link-light fw-bold">Results</a></li>
         <li><a href="{% url 'payment:purchasing_option' %}" class="nav-link px-3 link-light fw-bold">Get Token</a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'profile:my_profile' %}" class="nav-link px-3 link-light fw-bold">Profile</a></li>
+        {% endif %}
       </ul>
       
       {% if request.user.is_authenticated %}
-      <li><a href="{% url 'profile:my_profile' %}" class="nav-link px-3 link-light fw-bold">Profile</a></li>
       <span class="text-warning">Token: {{user_token}}</span>
       <div class="dropdown">
         <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">

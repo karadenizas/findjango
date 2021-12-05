@@ -20,7 +20,7 @@ def index(request):
 def htmx_latest_advices(request):
     latest_advices = CreateInvest.objects.filter(active=True).order_by('-create_time')
 
-    paginator = Paginator(latest_advices, 10)
+    paginator = Paginator(latest_advices, 8)
     page = request.GET.get('page')
     try:
         paginate_advices = paginator.page(page)
@@ -39,7 +39,7 @@ def htmx_latest_advices(request):
 def htmx_popular_advices(request):
     popular_advices = CreateInvest.objects.filter(active=True).annotate(q_count=Count('member')).order_by('-q_count')
 
-    paginator = Paginator(popular_advices, 10)
+    paginator = Paginator(popular_advices, 8)
     page = request.GET.get('page')
     try:
         paginate_advices = paginator.page(page)
