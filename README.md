@@ -1,8 +1,8 @@
 # **Turkish**
 ## FinDjango, Django Web Framework ile hazirlanan finans uygulamasidir.
 ### Canli Uygulama
-[**FinDjango**](https://findjango.herokuapp.com) - Heroku'ya deploy edilmis canli versiyonu.
-[**YouTube Intro**](https://youtu.be/-IT22Q2qNAs) - YouTube'daki tanitim videosu.
+- [**FinDjango**](https://findjango.herokuapp.com) - Heroku'ya deploy edilmis canli versiyonu.
+- [**YouTube Intro**](https://youtu.be/-IT22Q2qNAs) - YouTube'daki tanitim videosu.
 
 ## Uygulama Hakkinda
 #### Nedir?
@@ -49,8 +49,8 @@ FinDjango **ornek** bir proje oldugu icin haliyle kapsamli bir uygulama degildir
 # English
 ## FinDjango is a finance application built with Django Web Framework.
 ### Live App
-[**FinDjango**](https://findjango.herokuapp.com) - Live version deployed to Heroku.
-[**YouTube Intro**](https://youtu.be/-IT22Q2qNAs) - Introduction on YouTube.
+- [**FinDjango**](https://findjango.herokuapp.com) - Live version deployed to Heroku.
+- [**YouTube Intro**](https://youtu.be/-IT22Q2qNAs) - Introduction on YouTube.
 
 ## About the App
 #### What's FinDjango?
