@@ -42,6 +42,7 @@ FinDjango **ornek** bir proje oldugu icin haliyle kapsamli bir uygulama degildir
 - Iki para birimi arasindaki deger uzerinden kurgulanmasi gereksiz veya yetersiz olabilir. Bununla beraber kripto paralar ve borsa materyalleri sisteme entegre edilebilir, gelistirilebilir.
 - Database kurgulari ve query performanslari gelistirilebilir/gelistirilmeli.
 - Function Based Viewlar, Class Based View olarak yeniden kurgulanabilir.
+- Heroku, static dosyalari barindirmadigi icin profil fotograflari gorunmemekte.
 - Uygulamaya dair bir cok gelistirme yapilabilir...
 
 # English
@@ -88,4 +89,5 @@ Since FinDjango is an **example** project, it is not a comprehensive application
 - It may be unnecessary or insufficient to build on the value between two currencies. In addition, cryptocurrencies and stock market materials can be integrated into the system and developed.
 - Database setups and query performances can/should be improved.
 - Function Based Views can be reconfigured as Class Based Views.
+- Profile photos are not visible because Heroku does not host static files.
 - Many improvements can be made on the application...
