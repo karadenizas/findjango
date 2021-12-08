@@ -25,8 +25,20 @@ Her gun UTC 15:05'de sonuclar aciklanir ve **Result** sekmesi altinda listelenir
 Sag ustteki kullanici butonu altinda **Settings**'e basilarak profil ayarlari veya parola degisikligi islemleri yapilabilir.
 
 ## Proje Hakkinda
+#### Nasil olusturuldu?
+- Database olarak PostgreSQL kullanildi.
+- User modeli, Django'nun default user modeli yerine AbstractBaseUser sinifindan turetilmis daha kisisellestirilebilir bir user modeli uzerinden kurgulandi. 
+- Payment processleri Braintree (paypal) uzerinden entegre edildi.
+- Kur bilgileri [Frankfurter](https://www.frankfurter.app/) API uzerinden guncel olarak alinmaktadir. API bilgileri Avrupa Merkez Bankasindan alinmakta olup her gun UTC 15:00'da guncellenmektedir. Bundan 5 dakika sonra da FinDjango guncellenmektedir. Guncelleme esnasinda o gun tarihli tavsiyeler guncel kurla hesaplanip Result sekmesinde gosterilir. 
+- Demo sitenin bos kalmamasi icin her gun guncellemeden sonra 10 yeni tavsiye olusturulur. Result'a gecen 10 tavsiye ve yeni olusturulan 10 tavsiye haricindeki tavsiyeler otomatik olarak silinir.  (*investment/task_result.py*)
+- Frontend kisminda AJAX call yapabilmek icin jquery yerine [htmx](https://htmx.org/) kullanildi.
+- Ve daha bir cok ozellik kullanildi...
 
 
-
-#### Neler eksik?
+#### Neler eksik? Hangi ozellikleri gelistirilebilir?
 FinDjango **ornek** bir proje oldugu icin haliyle kapsamli bir uygulama degildir. 
+- Daha cok backend amacli calisildigi icin, frontend kismina fazla ozen gosterilmedi. Bootstrap kullanildi ve responsive tasarim odakli calisilmadi.
+- Iki para birimi arasindaki deger uzerinden kurgulanmasi gereksiz veya yetersiz olabilir. Bununla beraber kripto paralar ve borsa materyalleri sisteme entegre edilebilir, gelistirilebilir.
+- Database kurgulari ve query performanslari gelistirilebilir/gelistirilmeli.
+- Function Based Viewlar, Class Based View olarak yeniden kurgulanabilir.
+- Uygulamaya dair bir cok gelistirme yapilabilir...
