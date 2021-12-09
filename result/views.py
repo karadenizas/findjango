@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from investment.models import ResultInvest
 
 

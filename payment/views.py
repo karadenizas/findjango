@@ -1,11 +1,13 @@
-from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
-from payment.models import PurchaseOption, UserWallet, PaymentTransaction
 import braintree
-from braintree import client_token
+
+from django.shortcuts import redirect, render
 from django.conf import settings
 
+from payment.models import PurchaseOption, UserWallet, PaymentTransaction
+
+
 gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
+
 
 def purchasing_option(request):
     packs = PurchaseOption.objects.all()
@@ -29,7 +31,12 @@ def payment_process(request, id):
         })
         
         if result.is_success:
-            PaymentTransaction.objects.create(wallet=user_wallet, transaction_type='buy', braintree_id=result.transaction.id, amount=pack.token_amount)
+            PaymentTransaction.objects.create(
+                wallet=user_wallet,
+                transaction_type='buy',
+                braintree_id=result.transaction.id,
+                amount=pack.token_amount
+                )
             user_wallet.braintree_id = result.transaction.id
             user_wallet.token += pack.token_amount
             user_wallet.save()
@@ -43,8 +50,10 @@ def payment_process(request, id):
         }
         return render(request, 'payment/process.html', context)
 
+
 def payment_done(request):
     return render(request, 'payment/done.html')
+
 
 def payment_canceled(request):
     return render(request, 'payment/canceled.html')

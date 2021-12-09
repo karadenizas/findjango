@@ -1,14 +1,20 @@
-from django import forms
-from investment.models import CreateInvest
 from datetime import date
+
+from django import forms
 from django.core.exceptions import ValidationError
+
+from investment.models import CreateInvest
 
 
 class CreateInvestForm(forms.ModelForm):
 
     class Meta:
         model = CreateInvest
-        fields = ('base_currency','target_currency', 'target_date', 'description', 'token', 'analysis')
+        fields = (
+            'base_currency','target_currency',
+            'target_date', 'description',
+            'token', 'analysis'
+        )
         widgets = {
             'base_currency': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
             'target_currency': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
@@ -21,5 +27,6 @@ class CreateInvestForm(forms.ModelForm):
     def clean_target_date(self):
         value = self.cleaned_data['target_date']
         if value <= date.today():
-            raise ValidationError('Target date cannot be previous date and today.')
+            raise ValidationError(
+                'Target date cannot be previous date and today.')
         return value

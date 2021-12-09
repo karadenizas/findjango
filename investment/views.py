@@ -1,16 +1,14 @@
-from django.contrib.messages.api import error
-from django.forms.utils import ErrorList
-from django.http.response import HttpResponse, JsonResponse
-from django.shortcuts import redirect, render
-from investment.forms import CreateInvestForm
 import requests
-from investment.models import CreateInvest, ResultInvest
+
+from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+from django.http.response import HttpResponse
+
+from investment.forms import CreateInvestForm
+from investment.models import CreateInvest
+from investment.decorators import member_check
 from userprofile.models import Profile
 from payment.models import UserWallet
-from django.contrib.auth.decorators import login_required
-from investment.decorators import member_check
-from datetime import date
-from django.contrib import messages
 
 
 @login_required
@@ -23,7 +21,6 @@ def create_form(request):
         'currencies': currencies,
         'form': CreateInvestForm()
     }
-
     return render(request, 'investment/create_invest.html', context)
 
 
@@ -33,13 +30,16 @@ def htmx_latest_rate(request):
         'https://api.frankfurter.app/latest?from=' + base)
     latest_rate = latest_repsonse.json()
 
-    return render(request, 'investment/htmx_latest_rates.html', {'latest_rate': latest_rate})
+    return render(request,
+                  'investment/htmx_latest_rates.html',
+                  {'latest_rate': latest_rate})
 
 
 @login_required
 def htmx_create_invest(request):
     form = CreateInvestForm()
-    currencies_response = requests.get('https://api.frankfurter.app/currencies')
+    currencies_response = requests.get(
+        'https://api.frankfurter.app/currencies')
     currencies = currencies_response.json()
 
     if request.method == "POST":
@@ -58,12 +58,19 @@ def htmx_create_invest(request):
             user_form.target_value = get_target_data
             user_form.save()
             return HttpResponse("""
-                <div class="alert alert-secondary bg-transparent text-center text-success fw-bold" role="alert">
-                <h4 class="alert-heading fw-bold">Advice has been successfully created!</h4>
+                <div class="
+                alert alert-secondary bg-transparent 
+                text-center text-success fw-bold" 
+                role="alert">
+
+                <h4 class="alert-heading fw-bold">
+                Advice has been successfully created!
+                </h4>
+
                 <p>You can show the your advices from the Profile tab.</p>
                 <hr>
-                </div> """
-                )
+                </div>
+                """)
             
     context = {
         'form': form,
@@ -79,7 +86,8 @@ def preview_invest(request, id):
     investor_wallet = UserWallet.objects.get(user=invest_model.investor)
     user_wallet = UserWallet.objects.get(user=request.user)
 
-    if request.user == invest_model.investor or request.user in invest_model.member.all():
+    if (request.user == invest_model.investor 
+        or request.user in invest_model.member.all()):
         return redirect('investment:review_invest', id=id)
 
     if request.method == "POST" and user_wallet.token >= invest_model.token:
@@ -108,15 +116,3 @@ def review_invest(request, id):
         'investor_profile': investor_profile,
     }
     return render(request, 'investment/review_invest.html', context)
-
-from datetime import date
-# Test Func
-def test(request):
-    form = CreateInvestForm()
-    if request.method == "POST":
-        form = CreateInvestForm(request.POST)
-        if form.is_valid():
-            return HttpResponse('ok')
-    else:
-        return render(request, 'test.html', {'form': form})
-    return render(request, 'test.html', {'form': form})

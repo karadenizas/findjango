@@ -20,7 +20,7 @@
                     {% for i in invest_result %}
                     <tr>
                         <td><a class="text-secondary" style="text-decoration: none;" href="{% url 'result:result_detail' i.id %}">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
-                        <td><a class="text-primary" style="text-decoration: none;" href="{% url 'profile:user_profile' i.investor|lower %}">{{i.investor}}</a></td>
+                        <td><a class="text-primary" style="text-decoration: none;" href="{% url 'profile:user_profile' i.investor|lower %}">{{i.investor|truncatechars:10}}</a></td>
                         {% if i.total_value > 0 %}
                         <td class="text-success">{{i.total_value}}</td>
                         <td class="text-success">% {{i.ratio|truncatechars:6}}</td>
@@ -50,7 +50,7 @@
                     {% for i in top_earner %}
                     <tr>
                         <td><a class="text-secondary" style="text-decoration: none;" href="{% url 'result:result_detail' i.id %}">{{i.invest.base_currency}} to {{i.invest.target_currency}}</a></td>
-                        <td><a class="text-primary" style="text-decoration: none;" href="{% url 'profile:user_profile' i.investor|lower %}">{{i.investor}}</a></td>
+                        <td><a class="text-primary" style="text-decoration: none;" href="{% url 'profile:user_profile' i.investor|lower %}">{{i.investor|truncatechars:10}}</a></td>
                         {% if i.total_value > 0 %}
                         <td class="text-success">{{i.total_value}}</td>
                         <td class="text-success">% {{i.ratio|truncatechars:6}}</td>

@@ -1,10 +1,11 @@
+from PIL import Image 
+
 from django.db import models
 from django.contrib.auth.models import (
                                         AbstractBaseUser,
                                         BaseUserManager,
                                         PermissionsMixin
                                         )
-from PIL import Image 
 from django.urls import reverse                                       
 
 
@@ -66,11 +67,17 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='profile')
+    user = models.ForeignKey(
+        MyUser,
+        on_delete=models.CASCADE,
+        related_name='profile')
     slug = models.SlugField(max_length=50, unique=True)
     first_name = models.CharField(max_length=120, null=True)
     last_name = models.CharField(max_length=120, null=True)
-    image = models.ImageField(blank=True, null=True, upload_to='profile_photos/%Y/%m/')
+    image = models.ImageField(
+        blank=True,
+        null=True,
+        upload_to='profile_photos/%Y/%m/')
     about = models.TextField(max_length=2500, null=True, blank=True)
 
     def __str__(self):

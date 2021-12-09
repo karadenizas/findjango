@@ -1,14 +1,23 @@
-import requests
 from datetime import date, timedelta
+
+import requests
+
 from investment.models import CreateInvest, ResultInvest
 
 
-# CreateInvest model target date check. If target date is now, set the result value and convert the 'active' true to false.
+"""
+CreateInvest model target date check.
+If target date is now,
+set the result value and convert the 'active' true to false.
+"""
 def target_date_job():
-    invests = CreateInvest.objects.filter(target_date=date.today(), active=True)
+    invests = (CreateInvest
+               .objects
+               .filter(target_date=date.today(), active=True))
     for invest in invests:
         payload = {'from':invest.base_currency, 'to':invest.target_currency}
-        latest_url = requests.get('https://api.frankfurter.app/latest', params=payload)
+        latest_url = requests.get(
+            'https://api.frankfurter.app/latest', params=payload)
         latest_data = latest_url.json()
 
         invest.active = False
@@ -22,12 +31,15 @@ def target_date_job():
             q.save()
 
     # Auto advice creation and deletion every day.
-    base_currencies = ['AUD', 'BGN', 'BRL', 'CAD', 'CHF', 'DKK', 'EUR', 'GBP', 'HKD', 'IDR']
-    target_currencies = ['ZAR', 'USD', 'TRY', 'THB', 'SEK', 'RUB', 'RON', 'PLN', 'NZD', 'JPY']
+    base_currencies = ['AUD', 'BGN', 'BRL', 'CAD', 'CHF',
+                       'DKK', 'EUR', 'GBP', 'HKD', 'IDR']
+    target_currencies = ['ZAR', 'USD', 'TRY', 'THB', 'SEK',
+                         'RUB', 'RON', 'PLN', 'NZD', 'JPY']
 
     for i in range(1, 11):
         payload = {'from':base_currencies[i-1], 'to':target_currencies[i-1]}
-        latest_url = requests.get('https://api.frankfurter.app/latest', params=payload)
+        latest_url = requests.get(
+            'https://api.frankfurter.app/latest', params=payload)
         latest_data = latest_url.json()
 
         CreateInvest.objects.create(

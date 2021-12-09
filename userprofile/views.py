@@ -1,15 +1,22 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView
+
 from investment.models import CreateInvest, ResultInvest
 from userprofile.forms import UserCreationForm, ProfileChangeForm
 from userprofile.models import MyUser, Profile
 
 
 def my_profile(request):
-    pending_advice = CreateInvest.objects.filter(investor=request.user, active=True)
-    given_concluded_advice = ResultInvest.objects.filter(investor=request.user)
+    pending_advice = CreateInvest.objects.filter(
+                                                investor=request.user,
+                                                active=True)
+    given_concluded_advice = ResultInvest.objects.filter(
+                                                        investor=request.user)
     purchased_advice = MyUser.objects.get(user_name=request.user).invest.all()
-    purchased_concluded_advice = MyUser.objects.get(user_name=request.user).member_result.all()
+    purchased_concluded_advice = (MyUser
+                                  .objects
+                                  .get(user_name=request.user)
+                                  .member_result.all())
 
     context = {
         'pending_advice': pending_advice,
@@ -32,8 +39,12 @@ def register_done(request):
 
 def user_profile(request, slug):
     user_profile = Profile.objects.get(slug=slug)
-    pending_advice = CreateInvest.objects.filter(investor=user_profile.user.id, active=True)
-    concluded_advice = ResultInvest.objects.filter(investor=user_profile.user.id)
+    pending_advice = CreateInvest.objects.filter(
+        investor=user_profile.user.id,
+        active=True
+    )
+    concluded_advice = ResultInvest.objects.filter(
+        investor=user_profile.user.id)
     
     context = {
         'user_profile': user_profile,
@@ -50,7 +61,9 @@ def profile_settings(request):
     form = ProfileChangeForm(instance=user_profile)
 
     if request.method == "POST":
-        form = ProfileChangeForm(request.POST, request.FILES, instance=user_profile)
+        form = ProfileChangeForm(request.POST,
+                                 request.FILES,
+                                 instance=user_profile)
         if form.is_valid():
             form.save()
             return redirect('profile:profile_change_done')
